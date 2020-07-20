@@ -12,7 +12,7 @@ let userSchema = new Schema({
 	password: {
 		type: String,
 		required: true,
-        select: false
+		select: false
 	}
 });
 
@@ -21,4 +21,11 @@ userSchema.methods.encryptPassword = async (password) => {
 	const hashedPassword = await bcrypt.hash(password, salt);
 	return hashedPassword;
 };
+
+// Compare two passwords - a hashed one and a non-hashed
+userSchema.methods.comparePassword = async function(nonHashedPassword) {
+	const result = bcrypt.compare(nonHashedPassword, this.password);
+	return result;
+};
+
 module.exports = mongoose.model('User', userSchema);
