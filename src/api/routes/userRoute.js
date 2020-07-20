@@ -1,8 +1,10 @@
 module.exports = (server) => {
-  const userController = require('../controllers/userController');
+  const { user_login, user_register} = require('../controllers/userController');
 
-  server.post('/users/register', userController.user_register)
-  
-  server.post('/users/login', userController.user_login)
+  server.post('/users/register', user_register)
+
+  server.post('/users/login', user_login)
+
+  //server.all('/users', all_users)
 
 }
