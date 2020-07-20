@@ -13,7 +13,11 @@ let userSchema = new Schema({
 		type: String,
 		required: true,
 		select: false
-	}
+	},
+    role: {
+        type: String,
+        default: "subscriber"
+    }
 });
 
 userSchema.methods.encryptPassword = async (password) => {

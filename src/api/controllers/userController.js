@@ -9,13 +9,14 @@ exports.user_register = async (req, res) => {
 	new_user
 		.save()
 		.then((user) => {
+			const { _id, name, email, role } = user;
 			res.status(201);
-			res.json(user);
+			res.json({ user: { _id, name, email, role } });
 		})
 		.catch((error) => {
 			res.status(500);
 			console.log(error);
-			res.json({ message: 'Erreur serveur.' });
+			res.json({ message: `${req.body.email} est déjà utilisé.` });
 		});
 };
 
@@ -27,7 +28,7 @@ exports.user_login = async (req, res, next) => {
 		const user = await User.findOne({ email }).select('+password');
 		if (!user) {
 			res.status(500);
-			res.json({ message: 'Mauvais adresse email' });
+			res.json({ message: 'Mauvaise adresse email' });
 		}
 
 		const isValidPassword = await user.comparePassword(password);
@@ -37,7 +38,8 @@ exports.user_login = async (req, res, next) => {
 		}
 
 		let userData = {
-			email: user.email
+			email: user.email,
+			role: user.role
 		};
 		await jwt.sign({ userData }, process.env.JWT_KEY, { expiresIn: '30 days' }, (error, token) => {
 			if (error) {
@@ -45,7 +47,10 @@ exports.user_login = async (req, res, next) => {
 				console.log(error);
 				res.json({ message: 'Erreur serveur' });
 			} else {
-				res.json({user: userData,  token });
+				// persist the token in cookies with expiry date
+				res.cookie('token_noddy_ipssi', token, { expire: new Date() + 9999 });
+				const { _id, name, email, role } = user;
+				res.json({ user: { _id, name, email, role }, token });
 			}
 		});
 	} catch (error) {
@@ -54,4 +59,25 @@ exports.user_login = async (req, res, next) => {
 	}
 };
 
-exports.all_users = () => {};
+exports.logout = (req, res) => {
+	res.clearCookie('token_noddy_ipssi');
+	return res.json({ message: 'Vous avez été déconnecté avec succès !' });
+};
+//exports.all_users = () => {};
+
+// findUserById method to easily query DB and retrieve a user from it
+exports.findUserById = async (req, res, next, id) => {
+	try {
+		await User.findById(id).sort('created_at').exec((err, user) => {
+			if (err || !user) {
+				return res.status(400).json({
+					error: 'Utilisateur non trouvé !'
+				});
+			}
+			req.profile = user; // adds profile object to req with user infos
+			next();
+		});
+	} catch (err) {
+		next(err);
+	}
+};
