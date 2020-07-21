@@ -1,39 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat&display=swap">
-</head>
-<body>
-    <h1>Bienvenue sur votre tableau de board</h1>
-    <h1 id="searchHeading">Search Result <span style="color: gray;"> > </span> <%= searchQuery.toUpperCase() %></h1>
-    <% data["results"].forEach(movie => { %>
-    <div class="card mb-5 w-75">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <img src="https://image.tmdb.org/t/p/w1280<%= movie['backdrop_path']%>" class="card-img img-fluid"
-                    alt="<%= movie["original_title"]%> Cover">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h3 id="movie-card-title" class="card-title"><%= movie["original_title"]%></h3>
-                    <hr>
-                    <p class="card-text"><%= movie["overview"]%></p>
-                    <hr>
-                    <br>
-                    <p class="card-text"><b>Date published:</b> <%= movie["release_date"]%></p>
-                    <p class="card-text"><b>Total Votes:</b> <%= movie["vote_count"]%></p>
-                </div>
+<%- include('partials/header') -%>
+<h1 class="jumbotron text-center mt-5">Welcome to Noddy App</h1>
+
+<h1 id="postsHeading">Liste des posts</h1>
+<% data["posts"].forEach(post => { %>
+<div class="card mb-5 w-75">
+    <div class="row no-gutters">
+        <div class="col-md-8">
+            <div class="card-body">
+                <h3 id="movie-card-title" class="card-title"><%= post["title"]%></h3>
+                <hr>
+                <p class="card-text"><%= post["content"]%></p>
             </div>
         </div>
     </div>
-    <% }); %>
-</body>
+</div>
+<% }); %>
 
-</html>
-</body>
-</html>
+<%- if() { -%> <!-- user is admin -->
+<div class="row no-gutters">
+    <a class="btn btn-success btn-block mt-5" role="button" type="submit" href=""></a>
+</div>
+<%- } -%>
+<%- include('partials/footer') -%>

@@ -25,6 +25,17 @@ server.get('/', (req, res) => {
 	res.render('index');
 });
 
+server.get('/post/new', (req, res) => {
+	res.render('new');
+});
+
+server.get('/login', (req, res) => {
+	res.render('login');
+});
+server.get('/register', (req, res) => {
+	res.render('register');
+});
+
 const postRoute = require('./api/routes/postRoute');
 postRoute(server);
 
