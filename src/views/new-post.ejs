@@ -1,0 +1,16 @@
+<%- include('partials/header') -%>
+<div class="container mt-5 w-50">
+
+    <h2 class="mb-4">Créer un nouveau post</h2>
+
+    <form action="/posts" method="POST">
+        <input type="text" name="title" class="form-control" placeholder="Titre du post">
+
+        <textarea type="text" rows="5" cols="15" name="content" class="form-control"
+            placeholder="Contenu du post"></textarea>
+
+        <button type="submit" class="btn btn-danger btn-block mt-3">Créer le post</button>
+    </form>
+</div>
+<%- include('partials/footer') -%>
+    

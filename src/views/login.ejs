@@ -1,0 +1,19 @@
+<%- include('partials/header') -%>
+    <div class="container">
+        <h1 class="jumbotron text-center mt-5">Welcome to Noddy App</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
+        <div class="form-group">
+            <label for="inputEmail" class="sr-only">Adresse Email</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Votre addresse email" required
+                autofocus>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Votre mot de passe" required>
+        </div>
+
+        <a class="btn btn-lg btn-md btn-xs btn-primary btn-block mt-5" role="button" type="submit" href="/login">Se connecter</a>
+    </div>
+
+<%- include('partials/footer') -%>
+

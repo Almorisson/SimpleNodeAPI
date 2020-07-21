@@ -7,7 +7,8 @@ exports.verify_token = (req, res, next) => {
     jwt.verify(token, process.env.JWT_KEY, (error, authData) => {
       if(error){
         res.status(401);
-        res.json({message: "Accès interdit"})
+        console.log(token)
+        res.json({message: "Accès interdit 1 - " + error})
       }
       else{
         next();
@@ -16,6 +17,6 @@ exports.verify_token = (req, res, next) => {
   }
   else{
     res.status(401);
-    res.json({message: "Accès interdit"})
+    res.json({message: "Accès interdit 2"})
   }
 }

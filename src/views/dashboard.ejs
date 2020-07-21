@@ -1,0 +1,24 @@
+<%- include('partials/header') -%>
+<h1 class="jumbotron text-center mt-5">Welcome to Noddy App</h1>
+
+<h1 id="postsHeading">Liste des posts</h1>
+<% data["posts"].forEach(post => { %>
+<div class="card mb-5 w-75">
+    <div class="row no-gutters">
+        <div class="col-md-8">
+            <div class="card-body">
+                <h3 id="movie-card-title" class="card-title"><%= post["title"]%></h3>
+                <hr>
+                <p class="card-text"><%= post["content"]%></p>
+            </div>
+        </div>
+    </div>
+</div>
+<% }); %>
+
+<%- if() { -%> <!-- user is admin -->
+<div class="row no-gutters">
+    <a class="btn btn-success btn-block mt-5" role="button" type="submit" href=""></a>
+</div>
+<%- } -%>
+<%- include('partials/footer') -%>
