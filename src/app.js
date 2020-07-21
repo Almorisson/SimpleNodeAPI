@@ -26,7 +26,7 @@ server.get('/', (req, res) => {
 });
 
 server.get('/post/new', (req, res) => {
-	res.render('new');
+	res.render('new-post');
 });
 
 server.get('/login', (req, res) => {
